@@ -11,6 +11,13 @@ export class App extends Component {
   };
 
   addContact = (name, number) => {
+    const { contacts } = this.state;
+
+    const checkedContacts = contacts.filter(contact => contact.name === name);
+    if (checkedContacts.length >= 1) {
+      alert(`${name} is already in contacts`);
+    }
+
     const contact = {
       id: nanoid(),
       name,
@@ -30,7 +37,9 @@ export class App extends Component {
 
   render() {
     const { contacts, filter } = this.state;
-    const visibleContacts = contacts.filter(contact => contact.name.includes(filter))
+    const visibleContacts = contacts.filter(contact =>
+      contact.name.toLowerCase().includes(filter.toLowerCase())
+    );
     return (
       <div>
         <h1>Phonebook</h1>
