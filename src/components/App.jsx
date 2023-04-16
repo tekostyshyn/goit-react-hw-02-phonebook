@@ -3,6 +3,7 @@ import { nanoid } from 'nanoid';
 import Form from './Form';
 import ContactsList from './ContactsList';
 import Filter from './Filter';
+import './App.scss'
 
 export class App extends Component {
   state = {
@@ -16,6 +17,7 @@ export class App extends Component {
     const checkedContacts = contacts.filter(contact => contact.name === name);
     if (checkedContacts.length >= 1) {
       alert(`${name} is already in contacts`);
+      return;
     }
 
     const contact = {
@@ -27,6 +29,12 @@ export class App extends Component {
     this.setState(prevState => ({
       contacts: [...prevState.contacts, contact],
     }));
+  };
+
+  deleteContact = id => {
+    const { contacts } = this.state;
+    const updatedContacts = contacts.filter(contact => contact.id !== id);
+    this.setState({ contacts: updatedContacts });
   };
 
   changeFilter = e => {
@@ -41,12 +49,15 @@ export class App extends Component {
       contact.name.toLowerCase().includes(filter.toLowerCase())
     );
     return (
-      <div>
+      <div className='container'>
         <h1>Phonebook</h1>
         <Form onSubmit={this.addContact}></Form>
         <h2>Contacts</h2>
         <Filter value={filter} onChange={this.changeFilter}></Filter>
-        <ContactsList contactsList={visibleContacts}></ContactsList>
+        <ContactsList
+          contactsList={visibleContacts}
+          onDelete={this.deleteContact}
+        ></ContactsList>
       </div>
     );
   }

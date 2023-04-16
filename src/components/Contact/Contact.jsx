@@ -1,7 +1,10 @@
-const Contact = ({ name, number }) => {
+import './Contact.scss'
+
+const Contact = ({ name, number, children }) => {
   return (
-    <li>
+    <li className='contacts-list__item'>
       {name}: {number}
+      {children}
     </li>
   );
 };

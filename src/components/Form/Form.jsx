@@ -1,5 +1,6 @@
 import { Component } from 'react';
 import { nanoid } from 'nanoid';
+import './Form.scss';
 
 class Form extends Component {
   state = {
@@ -34,9 +35,12 @@ class Form extends Component {
     const numberInpudId = nanoid();
 
     return (
-      <form action="" onSubmit={this.handleSubmit}>
-        <label htmlFor={nameInpudId}>Name</label>
+      <form action="" onSubmit={this.handleSubmit} className="form">
+        <label htmlFor={nameInpudId} className="form__label">
+          Name
+        </label>
         <input
+          className="form__input"
           type="text"
           name="name"
           id={nameInpudId}
@@ -46,8 +50,11 @@ class Form extends Component {
           required
           onChange={this.handleInputChange}
         />
-        <label htmlFor={numberInpudId}>Number</label>
+        <label htmlFor={numberInpudId} className="form__label">
+          Number
+        </label>
         <input
+          className="form__input"
           type="tel"
           name="number"
           id={numberInpudId}
@@ -57,7 +64,7 @@ class Form extends Component {
           required
           onChange={this.handleInputChange}
         />
-        <button type="submit">Add contact</button>
+        <button className='form__button' type="submit">Add contact</button>
       </form>
     );
   }
